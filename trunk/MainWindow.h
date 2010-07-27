@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-// InfoController.mm
+// MainWindow.h
 //
 // Copyright (c) 2010, NGMOCO:)
 // All rights reserved.
@@ -31,78 +31,11 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // Imports
-#import "InfoController.h"
+#import <Cocoa/Cocoa.h>
 
-
-/////////////////////////////////////////////////////////////////////////////
-@implementation InfoController
-
-static InfoController* sSharedInfoController = nil;
-
-@synthesize GeneralInfo =  mGeneralInfo;
-
-/////////////////////////////////////////////////////////////////////////////
-+(InfoController*) SharedInfoController
+@interface MainWindow : NSWindow
 {
-	@synchronized([InfoController class])
-	{
-		if (!sSharedInfoController)
-		{
-			[[self alloc] init];
-		}
 
-		return sSharedInfoController;
-	}
- 
-	return nil;
 }
-
-/////////////////////////////////////////////////////////////////////////////
-+(id)alloc
-{
-	@synchronized([InfoController class])
-	{
-		NSAssert(sSharedInfoController == nil, @"Attempted to allocate a second instance of a singleton.");
-		sSharedInfoController = [super alloc];
-		return sSharedInfoController;
-	}
- 
-	return nil;
-}
- 
-/////////////////////////////////////////////////////////////////////////////
--(id)init
-{
-	self = [super init];
-	if (self != nil)
-	{
-		// initialize stuff here
-		[mGeneralInfo setString:@"No File Loaded"];
-		sSharedInfoController = self;
-	}
-	return self;
-}
-
-
-/////////////////////////////////////////////////////////////////////////////
--(void) AppendGeneralInfo: (const char*) data
-{
-	//NSString* currentData = [NSString stringWithFormat:@"%@%@",[mGeneralInfo stringValue],[NSString stringWithUTF8String:data]];
-	//[mGeneralInfo setString:currentData];
-}
-
-/////////////////////////////////////////////////////////////////////////////
--(void) SetGeneralInfo: (const char*) data
-{
-	[mGeneralInfo setString:[NSString stringWithUTF8String:data]];
-}
-
-/////////////////////////////////////////////////////////////////////////////
--(void) ClearGeneralInfo
-{
-	[mGeneralInfo setString:@""];
-}
-
 
 @end
-
