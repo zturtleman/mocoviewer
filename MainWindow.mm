@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-// InfoController.mm
+// MainWindow.mm
 //
 // Copyright (c) 2010, NGMOCO:)
 // All rights reserved.
@@ -31,78 +31,63 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // Imports
-#import "InfoController.h"
+#import "MainWindow.h"
+#import "AVOpenGLModel.h"
+#include "MDLReaderPolicy.h"
 
-
-/////////////////////////////////////////////////////////////////////////////
-@implementation InfoController
-
-static InfoController* sSharedInfoController = nil;
-
-@synthesize GeneralInfo =  mGeneralInfo;
+@implementation MainWindow
 
 /////////////////////////////////////////////////////////////////////////////
-+(InfoController*) SharedInfoController
+-(id) initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
-	@synchronized([InfoController class])
+	if(!(self = [super initWithContentRect:contentRect 
+						    styleMask:aStyle 
+							backing:bufferingType defer:flag]))
 	{
-		if (!sSharedInfoController)
-		{
-			[[self alloc] init];
-		}
-
-		return sSharedInfoController;
+		return self;
 	}
- 
-	return nil;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-+(id)alloc
-{
-	@synchronized([InfoController class])
-	{
-		NSAssert(sSharedInfoController == nil, @"Attempted to allocate a second instance of a singleton.");
-		sSharedInfoController = [super alloc];
-		return sSharedInfoController;
-	}
- 
-	return nil;
-}
- 
-/////////////////////////////////////////////////////////////////////////////
--(id)init
-{
-	self = [super init];
-	if (self != nil)
-	{
-		// initialize stuff here
-		[mGeneralInfo setString:@"No File Loaded"];
-		sSharedInfoController = self;
-	}
+	[self registerForDraggedTypes: [NSArray arrayWithObjects:NSFilenamesPboardType,nil]];
 	return self;
 }
 
-
 /////////////////////////////////////////////////////////////////////////////
--(void) AppendGeneralInfo: (const char*) data
+- (NSDragOperation)draggingEntered:(id )sender
 {
-	//NSString* currentData = [NSString stringWithFormat:@"%@%@",[mGeneralInfo stringValue],[NSString stringWithUTF8String:data]];
-	//[mGeneralInfo setString:currentData];
+	if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric) 
+	{ 
+		return NSDragOperationGeneric; 
+	} 
+	
+	return NSDragOperationNone; 
 }
 
 /////////////////////////////////////////////////////////////////////////////
--(void) SetGeneralInfo: (const char*) data
-{
-	[mGeneralInfo setString:[NSString stringWithUTF8String:data]];
+- (BOOL)prepareForDragOperation:(id )sender 
+{ 
+	return YES; 
 }
 
 /////////////////////////////////////////////////////////////////////////////
--(void) ClearGeneralInfo
+- (BOOL)performDragOperation:(id )sender
 {
-	[mGeneralInfo setString:@""];
+    NSPasteboard* pasteBoard = [sender draggingPasteboard];
+    NSArray* fileNames = [NSArray arrayWithObjects:NSFilenamesPboardType, nil]; 
+    NSString* type = [pasteBoard availableTypeFromArray:fileNames]; 
+	if ([type isEqualToString:NSFilenamesPboardType])
+    {
+		NSArray* fileNames = [pasteBoard propertyListForType:@"NSFilenamesPboardType"];
+        NSString* fileName = [fileNames objectAtIndex:0];
+        
+        const char* cFileName = [fileName cStringUsingEncoding:NSASCIIStringEncoding];
+        ng::ReaderMDL reader;
+        Md3Object* obj = reader.ReadFile(cFileName);
+        if(nil != [AVOpenGLModel sharedAVOpenGLModel])
+        {
+            [[AVOpenGLModel sharedAVOpenGLModel] setObj:obj];
+            return TRUE;
+        }
+    }
+    return NO; 	
 }
-
 
 @end
-

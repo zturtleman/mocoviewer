@@ -12,7 +12,7 @@
 //    * Redistributions in binary form must reproduce the above copyright notice, 
 //		this list of conditions and the following disclaimer in the documentation 
 //		and/or other materials provided with the distribution.
-//    * Neither the name of the <ORGANIZATION> nor the names of its contributors may be 
+//    * Neither the name of the NGMOCO:) nor the names of its contributors may be 
 //		used to endorse or promote products derived from this software without
 //		specific prior written permission.
 //
@@ -32,6 +32,7 @@
 
 # import "AssetViewerAppDelegate.h"
 #import "AVOpenGLModel.h"
+#include "MDLReaderPolicy.h"
 
 @implementation AssetViewerAppDelegate
 
@@ -53,6 +54,7 @@ static AssetViewerAppDelegate* s_instance = nil;
 	{
 		return s_instance;
 	}
+	return nil;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -67,6 +69,20 @@ static AssetViewerAppDelegate* s_instance = nil;
 	return self;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
+{
+	const char* cFileName = [filename cStringUsingEncoding:NSASCIIStringEncoding];
+	ng::ReaderMDL reader;
+	Md3Object* obj = reader.ReadFile(cFileName);
+	if(nil != [AVOpenGLModel sharedAVOpenGLModel])
+	{
+		[[AVOpenGLModel sharedAVOpenGLModel] setObj:obj];
+		return TRUE;
+	}
+	
+	return FALSE;
+}
 
 /////////////////////////////////////////////////////////////////////////////
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification

@@ -12,7 +12,7 @@
 //    * Redistributions in binary form must reproduce the above copyright notice, 
 //		this list of conditions and the following disclaimer in the documentation 
 //		and/or other materials provided with the distribution.
-//    * Neither the name of the <ORGANIZATION> nor the names of its contributors may be 
+//    * Neither the name of the NGMOCO:) nor the names of its contributors may be 
 //		used to endorse or promote products derived from this software without
 //		specific prior written permission.
 //
@@ -103,6 +103,9 @@ Md3Object* ReaderMDL::ReadFile(const char* name)
 			obj->glSurface[idx].mFramesGL = static_cast<Md3FrameGL*>(malloc(sizeof(Md3FrameGL) * numFrames));
 			memset(obj->glSurface[idx].mFramesGL, 0, sizeof(Md3FrameGL) * numFrames);
 			
+            // Read out the UV coords for the model
+            //obj->glSurface[idx].st = static_cast<Md3ST*>(malloc(sizeof(Md3ST) * surface->numVerts));
+            //memcpy(obj->glSurface[idx].st, surface + surface->ofsST, sizeof(Md3ST) * surface->numVerts);
 		
 			for(int32_t frameIdx = 0; frameIdx < numFrames; ++frameIdx)
 			{
@@ -161,9 +164,9 @@ Md3Object* ReaderMDL::ReadFile(const char* name)
 						MD3_XYZ_SCALE * vert->vertex[2] + 
 						obj->glSurface[idx].mFramesGL[frameIdx].normalBuffer[3*vertIdx+2];
 					normVertIdx += 1;
-
+					
 				}
-
+				
 				glBindBuffer(GL_ARRAY_BUFFER, obj->glSurface[idx].mFramesGL[frameIdx].vertexBufferId); 
 				glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*surface->numVerts*3,
 							 obj->glSurface[idx].mFramesGL[frameIdx].vertexBuffer, GL_STATIC_DRAW); 

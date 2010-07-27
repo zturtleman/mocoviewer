@@ -13,6 +13,7 @@
 		4A49957E11C0C1C100ADB4BB /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A49957D11C0C1C100ADB4BB /* OpenGL.framework */; };
 		4A4995A711C0C24700ADB4BB /* AssetViewerOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A4995A611C0C24700ADB4BB /* AssetViewerOpenGLView.mm */; };
 		4A4995E811C0CDFB00ADB4BB /* MainMenuController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A4995E711C0CDFB00ADB4BB /* MainMenuController.mm */; };
+		4A99F44211FEAF3B001EB388 /* MainWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A99F44111FEAF3B001EB388 /* MainWindow.mm */; };
 		4AB6F74E11D549610005ECA4 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6F74D11D549610005ECA4 /* InfoController.mm */; };
 		4AB861B411D27ED9009FD518 /* TagInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB861B311D27ED9009FD518 /* TagInfoController.m */; };
 		4ACB464311E3EA9800584AA6 /* AVOpenGLModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4ACB464211E3EA9800584AA6 /* AVOpenGLModel.mm */; };
@@ -46,6 +47,8 @@
 		4A4995E711C0CDFB00ADB4BB /* MainMenuController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainMenuController.mm; sourceTree = "<group>"; };
 		4A6E536411E64410009433ED /* flatVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flatVertex.glsl; sourceTree = "<group>"; };
 		4A6E536611E6456B009433ED /* flatFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flatFragment.glsl; sourceTree = "<group>"; };
+		4A99F44011FEAF3B001EB388 /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
+		4A99F44111FEAF3B001EB388 /* MainWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainWindow.mm; sourceTree = "<group>"; };
 		4AB6F74C11D549610005ECA4 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		4AB6F74D11D549610005ECA4 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
 		4AB861B211D27ED9009FD518 /* TagInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagInfoController.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				4AB6F74D11D549610005ECA4 /* InfoController.mm */,
 				4ACB464111E3EA9800584AA6 /* AVOpenGLModel.h */,
 				4ACB464211E3EA9800584AA6 /* AVOpenGLModel.mm */,
+				4A99F44011FEAF3B001EB388 /* MainWindow.h */,
+				4A99F44111FEAF3B001EB388 /* MainWindow.mm */,
 			);
 			name = ObjC;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 				4AB6F74E11D549610005ECA4 /* InfoController.mm in Sources */,
 				4ACB464311E3EA9800584AA6 /* AVOpenGLModel.mm in Sources */,
 				4ACB4E3811E5220800584AA6 /* Shader.cpp in Sources */,
+				4A99F44211FEAF3B001EB388 /* MainWindow.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
